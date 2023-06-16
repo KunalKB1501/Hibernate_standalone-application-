@@ -1,0 +1,18 @@
+1. Student registration (ids should start from 3200 onwards, HOW will you achieve it ????)
+i/p : student details (first name , last name,email,password,course(enum),dob )
+o/p : Reg successful , with student id(auto generated from hibernate, 1001 onwards) 
+or failure mesg.
+
+2. Student login
+i/p : email , password
+o/p : A mesg : login successful , with student details lifted from db
+or failure mesg.
+
+3. Get all students from a specific course
+i/p : course name
+o/p : display list of students from the course
+
+4. Change course
+i/p : student id , course name
+o/p : in case of invalid id --error mesg
+in case of success : course updation message
