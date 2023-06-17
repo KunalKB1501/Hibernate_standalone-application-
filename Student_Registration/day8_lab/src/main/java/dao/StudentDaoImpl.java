@@ -134,6 +134,7 @@ public class StudentDaoImpl implements StudentDao {
 		Transaction tr=session.beginTransaction();
 		try {
 			list=session.createQuery(jpql, Student.class).getResultList();
+			tr.commit();
 			
 		}
 		catch (RuntimeException e) {
