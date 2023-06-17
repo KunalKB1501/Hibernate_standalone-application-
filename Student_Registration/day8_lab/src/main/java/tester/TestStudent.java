@@ -31,6 +31,9 @@ public class TestStudent {
 			System.out.println("3.Update Student course");
 			System.out.println("4.Student details by course");
 			System.out.println("5.show all student details");
+			System.out.println("6.update all course date to 2023-06-12");
+			System.out.println("7.delete student details");
+			System.out.println("8.delete student details from course");
 		
 			while(exit)
 			{
@@ -70,6 +73,25 @@ public class TestStudent {
 						//show all students
 						List<Student>list=dao.getAllStudents();
 						list.forEach(v-> System.out.println(v));
+						break;
+					case 6:
+						//bulk updation
+						System.out.println("enter the course");
+						String c=sc.next().toUpperCase();
+						System.out.println("Enter new Date");
+						String date=sc.next();
+						String res=dao.updateAllDate(Course.valueOf(c),LocalDate.parse(date));
+						System.out.println(res);
+						break;
+					case 7:
+						//delete specific student details
+						System.out.println("enter the Student id");
+						System.out.println(dao.deleteDetails(sc.nextInt()));
+						break;
+					case 8:
+						//delete by course
+						System.out.println("enter the course");
+						System.out.println(dao.deletefromCourse(Course.valueOf(sc.next().toUpperCase())));
 						break;
 						default :
 							exit=false;
