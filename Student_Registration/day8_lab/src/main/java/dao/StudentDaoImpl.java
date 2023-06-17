@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 
 import static utils.HibernateUtils.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -144,6 +145,81 @@ public class StudentDaoImpl implements StudentDao {
 			throw e;
 		}
 		return list;
+	}
+
+	@Override
+	public String updateAllDate(Course c1, LocalDate d1) {
+		//using single update jpql query
+		
+		Session session=getFactory().getCurrentSession();
+		String mesg=null;
+		String jpql="update Student s set date=:dt where course=:c";
+		Transaction tr=session.beginTransaction();
+		try {
+			int result=session.createQuery(jpql).setParameter("dt",d1).setParameter("c",c1).executeUpdate();
+			if(result >0)
+			{
+				mesg="date updation Successful";
+			}
+			else
+			{
+				mesg="Date Updation failure";
+			}
+			tr.commit();
+			
+		} catch (RuntimeException e) {
+		if(tr!=null)
+			tr.rollback();
+		e.printStackTrace();
+		throw e;
+		}
+		return mesg;
+	}
+
+	@Override
+	public String deleteDetails(int empid) {
+		Session session=getFactory().getCurrentSession();
+		String msg=null;
+		Transaction tr=session.beginTransaction();
+		try {
+			Student s=session.get(Student.class, empid);
+			session.delete(s);
+			msg="delete successfully";
+			tr.commit();
+		} catch (RuntimeException e) {
+		if(tr!=null)
+			tr.rollback();
+		e.printStackTrace();
+		throw e;
+		}
+		return msg;
+	}
+
+	@Override
+	public String deletefromCourse(Course c) {
+		Session session=getFactory().getCurrentSession();
+		String msg=null;
+		String jpql="delete from Student s where course=:c1";
+		Transaction tr=session.beginTransaction();
+		try {
+			int result=session.createQuery(jpql).setParameter("c1",c).executeUpdate();
+			if(result >0)
+			{
+				msg="deleted  Successful";
+			}
+			else
+			{
+				msg="not deleted";
+			}
+			tr.commit();
+			
+		} catch (RuntimeException e) {
+		if(tr!=null)
+			tr.rollback();
+		e.printStackTrace();
+		throw e;
+		}
+		return msg;
 	}
 
 }
